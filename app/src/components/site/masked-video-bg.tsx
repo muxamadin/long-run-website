@@ -9,7 +9,10 @@ const VIDEO_MASK =
 // Source clips run at native speed, which reads as rushed for a slow,
 // deliberate product reveal. Played back slower here for a calmer,
 // more cinematic feel instead of re-exporting the source files.
-const PLAYBACK_RATE = 0.6;
+const PLAYBACK_RATE = 0.4;
+// How close to the clip's end (in its own media seconds, unaffected by
+// playbackRate) to start dipping opacity, masking the hard loop-restart cut.
+const LOOP_FADE_WINDOW = 0.35;
 
 export function MaskedVideoBackground({ src, poster }: { src: string; poster: string }) {
   const reduce = useReducedMotion();
@@ -21,9 +24,19 @@ export function MaskedVideoBackground({ src, poster }: { src: string; poster: st
     video.playbackRate = PLAYBACK_RATE;
     if (reduce) {
       video.pause();
-    } else {
-      video.play().catch(() => {});
+      return;
     }
+    video.play().catch(() => {});
+
+    function handleTimeUpdate() {
+      if (!video || !video.duration) return;
+      const timeLeft = video.duration - video.currentTime;
+      const nearEnd = timeLeft < LOOP_FADE_WINDOW;
+      const justLooped = video.currentTime < LOOP_FADE_WINDOW;
+      video.style.opacity = nearEnd || justLooped ? "0.55" : "1";
+    }
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
   }, [reduce]);
 
   return (
@@ -34,7 +47,7 @@ export function MaskedVideoBackground({ src, poster }: { src: string; poster: st
       >
         <video
           ref={videoRef}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition-opacity duration-300 ease-in-out"
           src={src}
           poster={poster}
           muted
