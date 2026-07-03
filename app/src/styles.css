@@ -76,6 +76,107 @@
   --radius: 0.625rem;
 }
 
+/*
+ * LongRun Trucking marketing site — brand layer on top of Quanta.
+ * Self-hosted per wow-maker/design-taste-frontend (no runtime Google Fonts link).
+ * Oswald = display/headlines (condensed, industrial). Manrope = body/UI.
+ * Blue is the single interactive accent; gold is reserved for pay numbers +
+ * one hero badge only (Section 4.2 color lock), matching the brand's own flyer.
+ */
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/oswald-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/oswald-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/oswald-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/manrope-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/manrope-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/manrope-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/manrope-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/manrope-800.woff2") format("woff2");
+}
+
+@theme {
+  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --color-lr-bg: #070b16;
+  --color-lr-bg-alt: #0c1226;
+  --color-lr-surface: #10182f;
+  --color-lr-surface-2: #141f3d;
+  --color-lr-border: #202c4d;
+  --color-lr-blue: #2f6fed;
+  --color-lr-blue-light: #6f9bff;
+  --color-lr-blue-dim: #16295c;
+  --color-lr-gold: #f5b942;
+  --color-lr-gold-dim: #4a3a17;
+  --color-lr-ink: #f5f7fb;
+  --color-lr-ink-dim: #97a3c4;
+}
+
+@layer utilities {
+  @keyframes lr-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .lr-marquee-track {
+    animation: lr-marquee 32s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lr-marquee-track {
+      animation: none;
+    }
+  }
+}
+
 @layer base {
   html {
     background-color: var(--hf-color-background-primary);
