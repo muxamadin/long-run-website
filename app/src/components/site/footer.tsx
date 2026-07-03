@@ -8,11 +8,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <a href="#top" className="flex items-center gap-2.5">
-              <img src="/assets/logo-mark.svg" alt="" className="h-8 w-8" width={32} height={32} />
-              <span className="font-display text-lg font-semibold tracking-tight text-lr-ink">
-                LongRun <span className="text-lr-blue-light">Trucking</span>
-              </span>
+            <a href="#top" className="flex items-center">
+              <img
+                src="/assets/logo-lockup-white.png"
+                alt="LongRun Trucking LLC"
+                className="h-7 w-auto"
+                width={760}
+                height={176}
+              />
             </a>
             <p className="mt-3 max-w-xs font-body text-sm text-lr-ink-dim">
               Your journey. Our respect. Your success. Our mission.

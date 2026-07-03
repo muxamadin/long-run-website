@@ -10,11 +10,14 @@ export function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-lr-border/60 bg-lr-bg/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-[72px] lg:px-8">
-        <a href="#top" className="flex items-center gap-2.5 shrink-0">
-          <img src="/assets/logo-mark.svg" alt="" className="h-9 w-9" width={36} height={36} />
-          <span className="font-display text-lg font-semibold tracking-tight text-lr-ink lg:text-xl">
-            LongRun <span className="text-lr-blue-light">Trucking</span>
-          </span>
+        <a href="#top" className="flex shrink-0 items-center">
+          <img
+            src="/assets/logo-lockup-white.png"
+            alt="LongRun Trucking LLC"
+            className="h-7 w-auto sm:h-8"
+            width={760}
+            height={176}
+          />
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">
