@@ -99,12 +99,12 @@ export function Hero() {
         </p>
         <div className="mt-2 flex items-end gap-6">
           <div>
-            <p className="font-display text-3xl font-semibold text-lr-gold">65-75</p>
-            <p className="font-body text-xs text-lr-ink-dim">CPM Solo</p>
+            <p className="font-display text-3xl font-semibold text-lr-gold">$0.70-$0.75</p>
+            <p className="font-body text-xs text-lr-ink-dim">per mile, Solo</p>
           </div>
           <div>
-            <p className="font-display text-3xl font-semibold text-lr-gold">80-92</p>
-            <p className="font-body text-xs text-lr-ink-dim">CPM Teams</p>
+            <p className="font-display text-3xl font-semibold text-lr-gold">$0.90-$1.00</p>
+            <p className="font-body text-xs text-lr-ink-dim">per mile, Teams</p>
           </div>
         </div>
       </motion.div>
