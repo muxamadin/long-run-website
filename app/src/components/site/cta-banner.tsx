@@ -1,4 +1,5 @@
 import { Reveal } from "./reveal";
+import { Magnetic } from "./magnetic";
 import { APPLY_LABEL } from "./site-content";
 
 export function CtaBanner() {
@@ -13,12 +14,14 @@ export function CtaBanner() {
             Great pay. Respect. Freedom. Future. Join a company that drives
             you forward.
           </p>
-          <a
-            href="#apply"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-lr-blue px-7 py-3.5 font-body text-base font-semibold text-white transition-transform hover:scale-[1.03] active:scale-[0.98]"
-          >
-            {APPLY_LABEL}
-          </a>
+          <Magnetic>
+            <a
+              href="#apply"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-lr-blue px-7 py-3.5 font-body text-base font-semibold text-white transition-transform hover:scale-[1.03] active:scale-[0.98]"
+            >
+              {APPLY_LABEL}
+            </a>
+          </Magnetic>
         </Reveal>
 
         <Reveal delay={0.12}>

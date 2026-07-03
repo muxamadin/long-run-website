@@ -15,6 +15,7 @@ import {
 } from "@phosphor-icons/react";
 
 import { Reveal } from "./reveal";
+import { SpotlightCard } from "./spotlight-card";
 
 type Benefit = { icon: Icon; label: string };
 
@@ -74,7 +75,7 @@ export function Benefits() {
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {CLUSTERS.map((cluster, i) => (
             <Reveal key={cluster.title} delay={i * 0.1}>
-              <div
+              <SpotlightCard
                 className={`h-full rounded-2xl border border-lr-border bg-gradient-to-b ${cluster.tint} to-lr-surface p-6`}
               >
                 <h3 className="font-display text-sm font-semibold uppercase tracking-[0.1em] text-lr-blue-light">
@@ -92,7 +93,7 @@ export function Benefits() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>

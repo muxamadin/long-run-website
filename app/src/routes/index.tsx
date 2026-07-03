@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { SmoothScroll } from "@/components/site/smooth-scroll";
+import { ScrollProgress } from "@/components/site/scroll-progress";
 import { Nav } from "@/components/site/nav";
 import { Hero } from "@/components/site/hero";
 import { TrustStrip } from "@/components/site/trust-strip";
@@ -15,17 +17,20 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="bg-lr-bg font-body text-lr-ink">
-      <Nav />
-      <main>
-        <Hero />
-        <TrustStrip />
-        <Benefits />
-        <PayHighlight />
-        <CtaBanner />
-        <ApplyForm />
-      </main>
-      <Footer />
-    </div>
+    <SmoothScroll>
+      <div className="bg-lr-bg font-body text-lr-ink">
+        <ScrollProgress />
+        <Nav />
+        <main>
+          <Hero />
+          <TrustStrip />
+          <Benefits />
+          <PayHighlight />
+          <CtaBanner />
+          <ApplyForm />
+        </main>
+        <Footer />
+      </div>
+    </SmoothScroll>
   );
 }

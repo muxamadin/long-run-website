@@ -3,6 +3,7 @@ import { ArrowRight, Phone } from "@phosphor-icons/react";
 
 import { APPLY_LABEL, CALL_LABEL, PHONE_HREF } from "./site-content";
 import { MaskedVideoBackground } from "./masked-video-bg";
+import { Magnetic } from "./magnetic";
 
 const HEADLINE_LINES = ["Drive More.", "Live More."];
 
@@ -34,9 +35,9 @@ export function Hero() {
             <motion.span
               key={line}
               className="block"
-              initial={reduce ? undefined : { opacity: 0, y: 32 }}
-              animate={reduce ? undefined : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              initial={reduce ? undefined : { opacity: 0, y: 32, filter: "blur(10px)" }}
+              animate={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.8, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
             >
               {i === 1 ? <span className="text-lr-blue-light">{line}</span> : line}
             </motion.span>
@@ -59,13 +60,15 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-8 flex flex-wrap items-center justify-center gap-4"
         >
-          <a
-            href="#apply"
-            className="group inline-flex items-center gap-2 rounded-full bg-lr-blue px-7 py-3.5 font-body text-base font-semibold text-white transition-transform hover:scale-[1.03] active:scale-[0.98]"
-          >
-            {APPLY_LABEL}
-            <ArrowRight weight="bold" className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
+          <Magnetic>
+            <a
+              href="#apply"
+              className="group inline-flex items-center gap-2 rounded-full bg-lr-blue px-7 py-3.5 font-body text-base font-semibold text-white transition-transform hover:scale-[1.03] active:scale-[0.98]"
+            >
+              {APPLY_LABEL}
+              <ArrowRight weight="bold" className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+          </Magnetic>
           <a
             href={PHONE_HREF}
             className="inline-flex items-center gap-2 rounded-full border border-lr-ink/25 bg-white/5 px-7 py-3.5 font-body text-base font-semibold text-lr-ink backdrop-blur-sm transition-colors hover:bg-white/10"
