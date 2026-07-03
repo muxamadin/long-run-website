@@ -28,7 +28,7 @@ export function PayHighlight() {
     >
       <MaskedVideoBackground src="/assets/pay-loop.mp4" poster="/assets/pay-loop-poster.jpg" />
 
-      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex max-w-4xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
         <Reveal className="flex flex-col items-center">
           <h2 className="font-display text-3xl font-semibold uppercase tracking-tight text-lr-ink sm:text-4xl">
             Pay that respects the miles
@@ -40,14 +40,14 @@ export function PayHighlight() {
 
         <div className="mt-12 flex w-full flex-col gap-5 sm:flex-row sm:justify-center">
           {TIERS.map((tier, i) => (
-            <Reveal key={tier.label} delay={i * 0.12} className="sm:w-72">
+            <Reveal key={tier.label} delay={i * 0.12} className="sm:w-96">
               <SpotlightCard className="h-full rounded-2xl border border-lr-border bg-lr-surface p-8">
                 <p className="font-body text-sm font-semibold uppercase tracking-[0.12em] text-lr-blue-light">
                   {tier.label}
                 </p>
-                <p className="mt-4 flex items-baseline justify-center gap-1 font-display text-5xl font-semibold text-lr-gold sm:text-6xl">
+                <p className="mt-4 flex flex-nowrap items-baseline justify-center gap-1 whitespace-nowrap font-display text-4xl font-semibold text-lr-gold sm:text-5xl">
                   <span>${tier.low}</span>
-                  <span className="text-3xl text-lr-ink-dim sm:text-4xl">-</span>
+                  <span className="text-2xl text-lr-ink-dim sm:text-3xl">-</span>
                   <span>
                     $<AnimatedStat value={tier.high} format={CENTS_FORMAT} />
                   </span>
