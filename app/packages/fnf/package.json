@@ -1,0 +1,37 @@
+{
+  "name": "@higgsfield/fnf",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Isomorphic generation + media client for Higgsfield (fnf)",
+  "author": "support@higgsfield.ai",
+  "license": "UNLICENSED",
+  "sideEffects": [
+    "./src/media/errors.ts"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./jobs": "./src/jobs/index.ts",
+    "./client": "./src/client/index.ts",
+    "./media": "./src/media/index.ts",
+    "./profile": "./src/profile/index.ts",
+    "./observability": "./src/observability/index.ts",
+    "./adapters": "./src/adapters/index.ts",
+    "./errors": "./src/errors.ts",
+    "./package.json": "./package.json"
+  },
+  "files": ["src"],
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.30",
+    "typescript": "^5.8.3",
+    "vitest": "^4.0.17",
+    "zod": "^4.0.0"
+  }
+}
