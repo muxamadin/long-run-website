@@ -8,5 +8,6 @@ export const CALL_LABEL = PHONE_DISPLAY;
 export const NAV_LINKS = [
   { href: "#why", label: "Why LongRun" },
   { href: "#pay", label: "Pay" },
+  { href: "#faq", label: "FAQ" },
   { href: "#apply", label: "Apply" },
 ] as const;

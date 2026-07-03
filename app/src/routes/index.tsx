@@ -6,8 +6,10 @@ import { Nav } from "@/components/site/nav";
 import { Hero } from "@/components/site/hero";
 import { TrustStrip } from "@/components/site/trust-strip";
 import { Benefits } from "@/components/site/benefits";
+import { Process } from "@/components/site/process";
 import { PayHighlight } from "@/components/site/pay-highlight";
 import { CtaBanner } from "@/components/site/cta-banner";
+import { Faq } from "@/components/site/faq";
 import { ApplyForm } from "@/components/site/apply-form";
 import { Footer } from "@/components/site/footer";
 
@@ -25,8 +27,10 @@ function Index() {
           <Hero />
           <TrustStrip />
           <Benefits />
+          <Process />
           <PayHighlight />
           <CtaBanner />
+          <Faq />
           <ApplyForm />
         </main>
         <Footer />
