@@ -6,37 +6,16 @@ import { useReducedMotion } from "motion/react";
 const VIDEO_MASK =
   "radial-gradient(ellipse 72% 68% at 50% 45%, black 45%, transparent 100%)";
 
-// Source clips run at native speed, which reads as rushed for a slow,
-// deliberate product reveal. Played back slower here for a calmer,
-// more cinematic feel instead of re-exporting the source files.
-const PLAYBACK_RATE = 0.4;
-// How close to the clip's end (in its own media seconds, unaffected by
-// playbackRate) to start dipping opacity, masking the hard loop-restart cut.
-const LOOP_FADE_WINDOW = 0.35;
-
 export function MaskedVideoBackground({ src, poster }: { src: string; poster: string }) {
   const reduce = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.playbackRate = PLAYBACK_RATE;
     if (reduce) {
-      video.pause();
-      return;
+      videoRef.current?.pause();
+    } else {
+      videoRef.current?.play().catch(() => {});
     }
-    video.play().catch(() => {});
-
-    function handleTimeUpdate() {
-      if (!video || !video.duration) return;
-      const timeLeft = video.duration - video.currentTime;
-      const nearEnd = timeLeft < LOOP_FADE_WINDOW;
-      const justLooped = video.currentTime < LOOP_FADE_WINDOW;
-      video.style.opacity = nearEnd || justLooped ? "0.55" : "1";
-    }
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
   }, [reduce]);
 
   return (
@@ -47,16 +26,13 @@ export function MaskedVideoBackground({ src, poster }: { src: string; poster: st
       >
         <video
           ref={videoRef}
-          className="h-full w-full object-cover transition-opacity duration-300 ease-in-out"
+          className="h-full w-full object-cover"
           src={src}
           poster={poster}
           muted
           loop
           playsInline
           preload="metadata"
-          onLoadedMetadata={(e) => {
-            e.currentTarget.playbackRate = PLAYBACK_RATE;
-          }}
         />
       </div>
       <div className="absolute inset-0 bg-lr-bg/55" />
