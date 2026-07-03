@@ -24,8 +24,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@higgsfield-ai/icons/*": ["./src/lib/quanta-lucide-icons.ts"]
+      "@/*": ["./src/*"]
     }
   }
 }

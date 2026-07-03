@@ -7,23 +7,14 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
-import { button } from "@higgsfield/quanta/button";
-import { NotFound } from "@higgsfield/quanta/not-found";
-import { bootstrapScript } from "@higgsfield/quanta/runtime";
+import type { ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportHiggsfieldError } from "../lib/higgsfield-error-reporting";
-// Page metadata (browser <title>/favicon + social og: tags) committed into the
-// repo by the marketplace meta API and read at BUILD time — no runtime fetch.
-// Editing it via the app settings UI rewrites this file and redeploys the app.
 import appMetaJson from "../app-meta.json";
 
-declare const __HF_DESIGN_INSPECTOR__: boolean;
-
-// Built-in defaults for any field that isn't set in app-meta.json.
-const DEFAULT_TITLE = "Higgsfield App";
-const DEFAULT_DESCRIPTION = "Higgsfield Generated Project";
+const DEFAULT_TITLE = "LongRun Trucking LLC | Now Hiring CDL Drivers";
+const DEFAULT_DESCRIPTION =
+  "Solo $0.70-$0.75 per mile. Teams $0.90-$1.00 per mile. No forced dispatch, weekly direct deposit, sign-on bonuses.";
 
 type AppMeta = {
   og_title?: string | null;
@@ -34,41 +25,11 @@ type AppMeta = {
 
 const appMeta = appMetaJson as AppMeta;
 
-// Build the document head (title / description / og: / twitter: / favicon) from
-// app-meta.json, falling back to the defaults above for any unset field.
-// og_title/og_description double as the browser <title> and meta description;
-// og_image_url (when set) also drives the twitter card + image. Built from
-// inline tag literals (conditional spreads for the optional image/favicon) so
-// it matches the head() shape TanStack expects.
-// favicon/og images live in THIS app's own /assets, so the host is never
-// inherent. app-meta.json may carry an absolute higgsfield-app URL with a STALE
-// host — baked from the app this one was copied/remixed/renamed from — which would
-// serve the wrong app's favicon/og. Strip any higgsfield-app host (prod
-// higgsfield.app + dev higgsfield-dev.app) down to a root-relative path so it
-// always resolves against whoever serves THIS page (preview / prod / custom
-// domain). Genuinely external URLs (a CDN image the owner set) are left absolute.
-const APP_HOST_ZONES = ["higgsfield.app", "higgsfield-dev.app"];
-
-function toOwnAssetUrl(value: string | null | undefined): string | null {
-  if (!value) return null;
-  if (value.startsWith("/")) return value; // already root-relative
-  try {
-    const u = new URL(value);
-    const isAppHost = APP_HOST_ZONES.some(
-      (zone) => u.hostname === zone || u.hostname.endsWith(`.${zone}`),
-    );
-    if (isAppHost) return u.pathname + u.search;
-    return value; // external host (CDN, etc.) — keep absolute
-  } catch {
-    return value; // not a parseable URL — leave as-is
-  }
-}
-
 function buildHead(meta: AppMeta) {
   const title = meta.og_title ?? DEFAULT_TITLE;
   const description = meta.og_description ?? DEFAULT_DESCRIPTION;
-  const ogImage = toOwnAssetUrl(meta.og_image_url);
-  const favicon = toOwnAssetUrl(meta.favicon_url);
+  const ogImage = meta.og_image_url ?? null;
+  const favicon = meta.favicon_url ?? null;
 
   return {
     meta: [
@@ -76,12 +37,11 @@ function buildHead(meta: AppMeta) {
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title },
       { name: "description", content: description },
-      { name: "author", content: "Higgsfield" },
+      { name: "author", content: "LongRun Trucking LLC" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: ogImage ? "summary_large_image" : "summary" },
-      { name: "twitter:site", content: "@Higgsfield" },
       ...(ogImage
         ? [
             { property: "og:image", content: ogImage },
@@ -98,17 +58,20 @@ function buildHead(meta: AppMeta) {
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-q-background-primary px-4">
-      <NotFound
-        className="mx-auto max-w-md"
-        icon={<span className="text-q-title-md-semi-bold text-q-text-primary">404</span>}
-        title="Page not found"
-        subtitle="The page you're looking for doesn't exist or has been moved."
+    <div className="flex min-h-dvh flex-col items-center justify-center gap-3 bg-lr-bg px-4 text-center font-body">
+      <p className="font-display text-6xl font-semibold text-lr-blue-light">404</p>
+      <h1 className="font-display text-xl font-semibold uppercase tracking-tight text-lr-ink">
+        Page not found
+      </h1>
+      <p className="max-w-sm text-sm text-lr-ink-dim">
+        The page you are looking for does not exist or has been moved.
+      </p>
+      <Link
+        to="/"
+        className="mt-3 rounded-full bg-lr-blue px-6 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] active:scale-[0.98]"
       >
-        <Link to="/" className={button({ variant: "primary", size: "md" }, "mt-3")}>
-          Go home
-        </Link>
-      </NotFound>
+        Go home
+      </Link>
     </div>
   );
 }
@@ -116,28 +79,30 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportHiggsfieldError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-q-background-primary px-4">
+    <div className="flex min-h-dvh items-center justify-center bg-lr-bg px-4 font-body">
       <div className="max-w-md text-center">
-        <h1 className="text-q-title-lg-semi-bold text-q-text-primary">This page didn't load</h1>
-        <p className="mt-2 text-q-body-sm-regular text-q-text-secondary">
-          Something went wrong on our end. You can try refreshing or head back home.
+        <h1 className="font-display text-xl font-semibold uppercase tracking-tight text-lr-ink">
+          This page did not load
+        </h1>
+        <p className="mt-2 text-sm text-lr-ink-dim">
+          Something went wrong. You can try refreshing or head back home.
         </p>
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
+        <div className="mt-4 flex flex-wrap justify-center gap-3">
           <button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className={button({ variant: "primary", size: "md" })}
+            className="rounded-full bg-lr-blue px-6 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] active:scale-[0.98]"
           >
             Try again
           </button>
-          <a href="/" className={button({ variant: "outline", size: "md" })}>
+          <a
+            href="/"
+            className="rounded-full border border-lr-border px-6 py-2.5 text-sm font-semibold text-lr-ink transition-colors hover:bg-lr-surface"
+          >
             Go home
           </a>
         </div>
@@ -147,7 +112,6 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  // Read the committed page metadata at build time (no runtime fetch).
   head: () => buildHead(appMeta),
   shellComponent: RootShell,
   component: RootComponent,
@@ -157,12 +121,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-theme="default-dark" style={{ colorScheme: "dark" }}>
+    <html lang="en" style={{ colorScheme: "dark" }}>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: bootstrapScript() }} />
         <HeadContent />
       </head>
-      <body className="bg-q-background-primary text-q-text-primary">
+      <body className="bg-lr-bg text-lr-ink">
         {children}
         <Scripts />
       </body>
@@ -172,25 +135,6 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
-  useEffect(() => {
-    if (!__HF_DESIGN_INSPECTOR__) {
-      return;
-    }
-
-    void import("../module/design-inspector/runtime")
-      .then(({ installHiggsfieldDesignInspector }) => {
-        installHiggsfieldDesignInspector();
-      })
-      .catch((error) => {
-        reportHiggsfieldError(
-          error instanceof Error ? error : new Error("Failed to load design inspector"),
-          {
-            boundary: "higgsfield_design_inspector_import",
-          },
-        );
-      });
-  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
