@@ -2,6 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
 
   "name": "longruntrucking",
+  // We only serve this Worker on our own custom domain, not *.workers.dev —
+  // skips the interactive "register a workers.dev subdomain?" prompt that
+  // hangs non-interactive CI deploys.
+  "workers_dev": false,
 
   // The Worker entry is the TanStack Start SSR server bundle — `vite build`
   // emits dist/server/server.js (`export default { fetch }`).
