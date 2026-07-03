@@ -30,7 +30,7 @@
     {
       "binding": "DB",
       "database_name": "longruntrucking-db",
-      "database_id": "REPLACE_WITH_REAL_DATABASE_ID"
+      "database_id": "0dd31ac0-36bc-46ba-91ce-fd99c1268fbc"
     }
   ]
 }
